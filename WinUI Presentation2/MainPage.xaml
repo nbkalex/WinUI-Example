@@ -1,0 +1,357 @@
+<Page
+  x:Class="WinUI_Presentation2.MainPage"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="using:WinUI_Presentation2"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:media="using:Microsoft.UI.Xaml.Media"
+  mc:Ignorable="d">
+
+  <Pivot Title="This is my WinUI presentation">
+    <PivotItem Header="Colors of the rainbow">
+      <StackPanel>
+        <Rectangle Height="100" HorizontalAlignment="Stretch">
+          <Rectangle.Fill>
+            <LinearGradientBrush>
+              <GradientStop Offset="0.0" Color="{Binding ElementName=colorPicker1, Path=Color}" />
+              <GradientStop Offset="0.5" Color="{Binding ElementName=colorPicker2, Path=Color}" />
+              <GradientStop Offset="1" Color="{Binding ElementName=colorPicker3, Path=Color}" />
+            </LinearGradientBrush>
+          </Rectangle.Fill>
+        </Rectangle>
+
+        <StackPanel Orientation="Horizontal">
+          <StackPanel.Resources>
+            <Style TargetType="ColorPicker">
+              <Setter Property="Margin" Value="20" />
+            </Style>
+          </StackPanel.Resources>
+          <ColorPicker x:Name="colorPicker1" Color="Red" />
+          <ColorPicker x:Name="colorPicker2" Color="Yellow" />
+          <ColorPicker x:Name="colorPicker3" Color="Blue" />
+        </StackPanel>
+      </StackPanel>
+    </PivotItem>
+    <PivotItem Header="Grow up Mr. Button">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="0.3*" />
+          <ColumnDefinition Width="0.7*" />
+        </Grid.ColumnDefinitions>
+        <Slider
+          x:Name="scaleSlider"
+          Grid.ColumnSpan="2"
+          Maximum="4"
+          Minimum="0.25"
+          StepFrequency="0.05"
+          Value="1" />
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="0"
+          Width="100"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Text="{Binding ElementName=scaleSlider, Path=Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+          <TextBox.RenderTransform>
+            <ScaleTransform ScaleX="{Binding ElementName=scaleSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" ScaleY="{Binding ElementName=scaleSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
+          </TextBox.RenderTransform>
+        </TextBox>
+        <Button
+          Grid.Row="1"
+          Grid.Column="1"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Content="Click Me"
+          Click="Button_Click">          
+          <Button.RenderTransform>
+            <ScaleTransform ScaleX="{Binding ElementName=scaleSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" ScaleY="{Binding ElementName=scaleSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
+          </Button.RenderTransform>
+          <Button.Style>
+            <Style TargetType="Button">
+              <Setter Property="Foreground" Value="{ThemeResource AccentButtonForeground}" />
+              <Setter Property="Background" Value="{ThemeResource AccentButtonBackground}" />
+              <Setter Property="BackgroundSizing" Value="OuterBorderEdge" />
+              <Setter Property="BorderBrush" Value="{ThemeResource AccentButtonBorderBrush}" />
+              <Setter Property="Width" Value="40" />
+              <Setter Property="Height" Value="40" />
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="Button">
+                    <Image
+                      Width="{TemplateBinding Width}"
+                      Height="{TemplateBinding Height}"
+                      Source="Assets/refresh.png">
+                      <Image.RenderTransform>
+                        <TransformGroup>
+                          <RotateTransform x:Name="MyAnimatedTransform" Angle="0" CenterX="20" CenterY="20" />
+                          <ScaleTransform x:Name="MyAnimatedTransform2" ScaleX="1" ScaleY="1" />
+                        </TransformGroup>
+                      </Image.RenderTransform>
+                      <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                          <VisualState x:Name="Normal">
+
+                            <Storyboard />
+                          </VisualState>
+
+                          <VisualState x:Name="PointerOver">
+
+                            <Storyboard>
+                              <DoubleAnimation
+                                Storyboard.TargetName="MyAnimatedTransform2"
+                                Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
+                                From="1"
+                                To="1.05"
+                                Duration="0:0:0.2" />
+                              <DoubleAnimation
+                                Storyboard.TargetName="MyAnimatedTransform2"
+                                Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+                                From="1"
+                                To="1.05"
+                                Duration="0:0:0.2" />
+
+                            </Storyboard>
+                          </VisualState>
+
+                          <VisualState x:Name="Pressed">
+
+                            <Storyboard>
+                              <DoubleAnimation
+                                Storyboard.TargetName="MyAnimatedTransform"
+                                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                From="0.0"
+                                To="720"
+                                Duration="0:0:1" />
+                            </Storyboard>
+                          </VisualState>
+
+                          <VisualState x:Name="Disabled">
+
+                            <Storyboard />
+                          </VisualState>
+
+                        </VisualStateGroup>
+
+                      </VisualStateManager.VisualStateGroups>
+                    </Image>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </Button.Style>
+        </Button>
+      </Grid>
+    </PivotItem>
+    <PivotItem Header="Wrap my donner">
+      <ScrollViewer>
+        <VariableSizedWrapGrid Orientation="Horizontal">
+          <VariableSizedWrapGrid.Resources>
+            <Style TargetType="Button">
+              <Setter Property="Margin" Value="10" />
+            </Style>
+            <Style TargetType="TextBlock">
+              <Setter Property="Margin" Value="10" />
+            </Style>
+          </VariableSizedWrapGrid.Resources>
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+          <Button Content="Button1" />
+          <TextBlock Text="lalalala" />
+        </VariableSizedWrapGrid>
+      </ScrollViewer>
+    </PivotItem>
+    <PivotItem Header="Mickey and Minnie XAML layout">
+      <Grid>
+        <Grid.Resources>
+          <Style TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0" />
+          </Style>
+          <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0" />
+          </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="300" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+        <Image
+          x:Name="topBanner"
+          Grid.Row="0"
+          Grid.ColumnSpan="3"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch"
+          Source="Assets\mickey_banner.png"
+          Stretch="Fill" />
+
+        <Image
+          x:Name="rightBanner"
+          Grid.Row="1"
+          Grid.RowSpan="4"
+          Grid.Column="2"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Top"
+          Source="Assets/mini_creion.jpg"
+          Stretch="Uniform" />
+
+        <Image
+          x:Name="bottomBanner"
+          Grid.Row="4"
+          Grid.Column="1"
+          Grid.ColumnSpan="2"
+          Width="500"
+          Source="Assets/mini_carioca.jpg" />
+
+        <TextBlock
+          Grid.Row="1"
+          Grid.Column="0"
+          Text="First name:" />
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          Text="Minnie" />
+
+        <TextBlock
+          Grid.Row="2"
+          Grid.Column="0"
+          Text="Last name (this is a very long description):" />
+        <TextBox
+          Grid.Row="2"
+          Grid.Column="1"
+          Text="Mouse" />
+
+        <TextBlock
+          Grid.Row="3"
+          Grid.Column="0"
+          Text="Age:" />
+        <TextBox
+          Grid.Row="3"
+          Grid.Column="1"
+          Text="95" />
+
+      </Grid>
+    </PivotItem>
+    <PivotItem Header="Composition">
+      <local:CompositionViewControl />
+    </PivotItem>
+  </Pivot>
+</Page>

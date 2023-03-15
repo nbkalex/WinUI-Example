@@ -1,0 +1,12 @@
+namespace WinUI_Presentation2
+{
+    [bindable]
+    [default_interface]
+    runtimeclass LoginViewModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        LoginViewModel();
+        
+        String Username;
+        String Password;
+    }
+}

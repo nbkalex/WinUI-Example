@@ -1,0 +1,11 @@
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="using:WinUI_Presentation2">
+  <Style x:Key="MyAppDefaultButtonStyle" TargetType="Button">
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+
+  <Style BasedOn="{StaticResource MyAppDefaultButtonStyle}" TargetType="Button" />
+
+</ResourceDictionary>

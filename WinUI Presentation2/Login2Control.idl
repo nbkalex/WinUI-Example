@@ -1,0 +1,13 @@
+namespace WinUI_Presentation2
+{
+    [default_interface]
+    runtimeclass Login2Control : Microsoft.UI.Xaml.Controls.UserControl, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        Login2Control();
+        Int32 MyProperty;
+        String Username;
+        String Password;
+
+        void Execute();
+    }
+}
