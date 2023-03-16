@@ -15,6 +15,11 @@ namespace winrt::WinUI_Presentation2::implementation
     AnimationControl::AnimationControl()
     {
         InitializeComponent();
+
+        /*winrt::AnimatedVisuals::Music_animation animation;
+        player().Source(animation);
+        player().Pause();
+        player().Resume();*/
     }
 
     int32_t AnimationControl::MyProperty()

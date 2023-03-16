@@ -110,6 +110,10 @@
       <DependentUpon>LoginViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+	<ClInclude Include="AnimatedVisuals.Music_animation.h">
+      <DependentUpon>AnimatedVisuals.Music_animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -173,6 +177,10 @@
       <DependentUpon>LoginViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+	<ClCompile Include="AnimatedVisuals.Music_animation.cpp">
+      <DependentUpon>AnimatedVisuals.Music_animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -202,6 +210,9 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="LoginViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+	<Midl Include="AnimatedVisuals.Music_animation.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MainPage.idl">
