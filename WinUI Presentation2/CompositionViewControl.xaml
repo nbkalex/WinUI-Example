@@ -17,5 +17,6 @@
       Margin="10"
       HorizontalAlignment="Right"
       VerticalAlignment="Top" />
+    <local:AnimationControl />
   </Grid>
 </UserControl>

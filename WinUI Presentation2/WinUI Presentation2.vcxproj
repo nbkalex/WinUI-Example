@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.WinUI.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.WinUI.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.Foundation.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.Foundation.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Foundation.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.Foundation.props')" />
-  <Import Project="..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props')" />
   <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.210211.2\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210211.2\build\native\Microsoft.Windows.CppWinRT.props')" />
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
@@ -94,6 +94,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationControl.xaml.h">
+      <DependentUpon>AnimationControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="CompositionViewControl.xaml.h">
       <DependentUpon>CompositionViewControl.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -118,6 +122,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="AnimationControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CompositionViewControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -137,6 +144,7 @@
   <ItemGroup>
     <Image Include="Assets\beack_background.jpeg" />
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
+    <Image Include="Assets\LottieLogo1.gif" />
     <Image Include="Assets\mickey_banner.png" />
     <Image Include="Assets\mini_carioca.jpg" />
     <Image Include="Assets\mini_creion.jpg" />
@@ -149,6 +157,10 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationControl.xaml.cpp">
+      <DependentUpon>AnimationControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="CompositionViewControl.xaml.cpp">
       <DependentUpon>CompositionViewControl.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -173,6 +185,10 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="AnimationControl.idl">
+      <DependentUpon>AnimationControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="App.idl">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -199,6 +215,9 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\music-animation.json">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -214,12 +233,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210211.2\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.210211.2\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210211.2\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.210211.2\build\native\Microsoft.Windows.CppWinRT.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Foundation.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.Foundation.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Foundation.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.Foundation.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Foundation.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.Foundation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Foundation.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.Foundation.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.WinUI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.WinUI.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.WinUI.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.WinUI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.WinUI.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.WinUI.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.1.0.0-experimental1\build\native\Microsoft.WindowsAppSDK.props'))" />
   </Target>
 </Project>
